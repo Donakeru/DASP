@@ -12,6 +12,7 @@ public class FileUtil {
   */
   public boolean writeToFile(String fileName, String dataLine,
       boolean isAppendMode, boolean isNewLine) {
+        
     if (isNewLine) {
       dataLine = "\n" + dataLine;
     }
