@@ -39,9 +39,10 @@ public class LoggerFrame extends JFrame {
 		LogMessageButton.setMnemonic(KeyEvent.VK_V);
 		JButton exitButton = new JButton(LoggerFrame.EXIT);
 		exitButton.setMnemonic(KeyEvent.VK_X);
-		ButtonHandler objButtonHandler = new ButtonHandler(this);
 
+		ButtonHandler objButtonHandler = new ButtonHandler(this);
 		LogMessageButton.addActionListener(objButtonHandler);
+		
 		exitButton.addActionListener(new ButtonHandler());
 
 		// For layout purposes, put the buttons in a separate panel
