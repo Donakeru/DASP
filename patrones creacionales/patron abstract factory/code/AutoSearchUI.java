@@ -12,11 +12,10 @@ public class AutoSearchUI extends JFrame {
   public static final String LUXURY = "Luxury";
   public static final String NON_LUXURY = "Non-Luxury";
 
-
   private JComboBox cmbVehicleCategory, cmbVehicleType;
 
   private JLabel lblVehicleCategory, lblVehicleType,
-  lblCarName, lblCarNameValue;
+      lblCarName, lblCarNameValue;
 
   public AutoSearchUI() {
     super("Abstract Factory - Example");
@@ -32,23 +31,23 @@ public class AutoSearchUI extends JFrame {
     lblVehicleCategory = new JLabel("Vehicle Category:");
     lblVehicleType = new JLabel("VehicleType:");
     lblCarName = new JLabel("Search Result:");
-    lblCarNameValue =
-      new JLabel(" Please click on Search button");
+    lblCarNameValue = new JLabel(" Please click on Search button");
 
-    //Create the open button
+    // Create the open button
     JButton openButton = new JButton(AutoSearchUI.SEARCH);
     openButton.setMnemonic(KeyEvent.VK_S);
     JButton exitButton = new JButton(AutoSearchUI.EXIT);
     exitButton.setMnemonic(KeyEvent.VK_X);
-    ButtonHandler objButtonHandler = new ButtonHandler(this);
 
+
+    ButtonHandler objButtonHandler = new ButtonHandler(this);
 
     openButton.addActionListener(objButtonHandler);
     exitButton.addActionListener(new ButtonHandler());
 
     JPanel buttonPanel = new JPanel();
 
-    //****************************************************
+    // ****************************************************
     GridBagLayout gridbag = new GridBagLayout();
     buttonPanel.setLayout(gridbag);
     GridBagConstraints gbc = new GridBagConstraints();
@@ -107,16 +106,16 @@ public class AutoSearchUI extends JFrame {
     gbc.gridy = 5;
     gridbag.setConstraints(exitButton, gbc);
 
-    //****************************************************
+    // ****************************************************
 
-    //Add the buttons and the log to the frame
+    // Add the buttons and the log to the frame
     Container contentPane = getContentPane();
 
     contentPane.add(buttonPanel, BorderLayout.CENTER);
     try {
-//      UIManager.setLookAndFeel(new WindowsLookAndFeel());
+      // UIManager.setLookAndFeel(new WindowsLookAndFeel());
       SwingUtilities.updateComponentTreeUI(
-        AutoSearchUI.this);
+          AutoSearchUI.this);
     } catch (Exception ex) {
       System.out.println(ex);
     }
@@ -127,29 +126,28 @@ public class AutoSearchUI extends JFrame {
     JFrame frame = new AutoSearchUI();
 
     frame.addWindowListener(new WindowAdapter() {
-          public void windowClosing(WindowEvent e) {
-            System.exit(0);
-          }
-        }
-                           );
+      public void windowClosing(WindowEvent e) {
+        System.exit(0);
+      }
+    });
 
-    //frame.pack();
+    // frame.pack();
     frame.setSize(1050, 600);
     frame.setVisible(true);
   }
-  
+
   public String getSelectedCategory() {
     return (String) cmbVehicleCategory.getSelectedItem();
   }
+
   public String getSelectedType() {
     return (String) cmbVehicleType.getSelectedItem();
   }
+
   public void setResult(String searchResult) {
     lblCarNameValue.setText(searchResult);
   }
 } // End of class AutoSearchUI
-
-
 
 class ButtonHandler implements ActionListener {
   AutoSearchUI objAutoSearchUI;
@@ -162,32 +160,29 @@ class ButtonHandler implements ActionListener {
   }
 
   public void actionPerformed(ActionEvent e) {
+    
     String searchResult = null;
 
     if (e.getActionCommand().equals(AutoSearchUI.EXIT)) {
       System.exit(1);
     }
     if (e.getActionCommand().equals(AutoSearchUI.SEARCH)) {
-      //get input values
-      String vhCategory =
-        objAutoSearchUI.getSelectedCategory();
+      // get input values
+      String vhCategory = objAutoSearchUI.getSelectedCategory();
       String vhType = objAutoSearchUI.getSelectedType();
 
-      //get one of Luxury or NonLuxury vehicle factories
-      VehicleFactory vf =
-        VehicleFactory.getVehicleFactory(vhType);
+      // get one of Luxury or NonLuxury vehicle factories
+      VehicleFactory vf = VehicleFactory.getVehicleFactory(vhType);
 
       if (vhCategory.equals(AutoSearchUI.LUXURY)) {
         Luxury c = vf.getLuxury();
-        searchResult =
-          "Name: " + c.getLuxuryName() + "  Features: " +
-          c.getLuxuryFeatures();
+        searchResult = "Name: " + c.getLuxuryName() + "  Features: " +
+            c.getLuxuryFeatures();
       }
       if (vhCategory.equals(AutoSearchUI.NON_LUXURY)) {
         NonLuxury s = vf.getNonLuxury();
-        searchResult =
-          "Name: " + s.getNLName() + "  Features: " +
-          s.getNLFeatures();
+        searchResult = "Name: " + s.getNLName() + "  Features: " +
+            s.getNLFeatures();
       }
       objAutoSearchUI.setResult(searchResult);
     }
@@ -195,4 +190,3 @@ class ButtonHandler implements ActionListener {
   }
 
 } // End of class ButtonHandler
-
