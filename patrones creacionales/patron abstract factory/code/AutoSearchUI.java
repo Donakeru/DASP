@@ -27,6 +27,7 @@ public class AutoSearchUI extends JFrame {
     cmbVehicleType = new JComboBox();
     cmbVehicleType.addItem(VehicleFactory.CAR);
     cmbVehicleType.addItem(VehicleFactory.SUV);
+    cmbVehicleType.addItem(VehicleFactory.HATCHBACK);
 
     lblVehicleCategory = new JLabel("Vehicle Category:");
     lblVehicleType = new JLabel("VehicleType:");
