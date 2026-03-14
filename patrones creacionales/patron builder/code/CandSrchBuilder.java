@@ -12,6 +12,7 @@ class CandSrchBuilder extends UIBuilder {
   private JComboBox cmbExperience = new JComboBox();
 
   public void addUIControls() {
+
     searchUI = new JPanel();
     JLabel lblUserName = new JLabel("Name :");
     JLabel lblExperienceRange = new JLabel("Experience(min Yrs.):");

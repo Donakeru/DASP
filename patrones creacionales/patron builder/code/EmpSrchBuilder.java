@@ -6,6 +6,7 @@ import com.sun.java.swing.plaf.windows.*;
 import java.util.*;
 
 class EmpSrchBuilder extends UIBuilder {
+  
   JLabel lblUserName = new JLabel("Name :");
 
   private JTextField txtUserName = new JTextField(15);

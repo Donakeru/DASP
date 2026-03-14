@@ -165,17 +165,31 @@ public class SearchManager extends JFrame {
 }
 
 class ButtonHandler implements ActionListener {
+
   SearchManager manager;
   UIBuilder builder;
 
+  public ButtonHandler() {
+  }
+
+  public ButtonHandler(SearchManager inManager) {
+    manager = inManager;
+  }
+
   public void actionPerformed(ActionEvent e) {
 
+    // Accion para boton de cerrar apliacion
     if (e.getActionCommand().equals(SearchManager.EXIT)) {
       System.exit(1);
     }
+
+    // Accion para boton de construir consulta SQL
     if (e.getActionCommand().equals(SearchManager.GET_SQL)) {
+      System.out.println(builder.getSQL());
       manager.setSQL(builder.getSQL());
     }
+
+    // Accion de refrescar pantalla para construir la pantalla
     if (e.getSource() == manager.getSearchTypeCtrl()) {
       String selection = manager.getSearchType();
 
@@ -196,12 +210,7 @@ class ButtonHandler implements ActionListener {
 
   }
 
-  public ButtonHandler() {
-  }
-
-  public ButtonHandler(SearchManager inManager) {
-    manager = inManager;
-  }
+  
 
 }
 
