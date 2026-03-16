@@ -9,8 +9,8 @@ public class SearchManager extends JFrame {
   public static final String GET_SQL = "Show SQL Statement";
   public static final String EXIT = "Exit";
   public static final String CANDIDATE_SRCH = "Candidate SQL Statement";
-
   public static final String EMPLOYER_SRCH = "Employer SQL Statement";
+  public static final String CONSULT_REG = "Consultant SQL Statement";
 
   public static final String BLANK = "";
 
@@ -34,6 +34,7 @@ public class SearchManager extends JFrame {
     cmbSearchType.addItem(SearchManager.BLANK);
     cmbSearchType.addItem(SearchManager.CANDIDATE_SRCH);
     cmbSearchType.addItem(SearchManager.EMPLOYER_SRCH);
+    cmbSearchType.addItem(SearchManager.CONSULT_REG);
 
     // Create Labels
     JLabel lblSearchType = new JLabel("Statement type:");
@@ -185,7 +186,6 @@ class ButtonHandler implements ActionListener {
 
     // Accion para boton de construir consulta SQL
     if (e.getActionCommand().equals(SearchManager.GET_SQL)) {
-      System.out.println(builder.getSQL());
       manager.setSQL(builder.getSQL());
     }
 
@@ -242,6 +242,8 @@ class BuilderFactory {
       builder = new CandSrchBuilder();
     } else if (str.equals(SearchManager.EMPLOYER_SRCH)) {
       builder = new EmpSrchBuilder();
+    } else if (str.equals(SearchManager.CONSULT_REG)) {
+      builder = new ConsSrchBuilder();
     }
     return builder;
   }
