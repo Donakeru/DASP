@@ -5,8 +5,8 @@ import java.util.*;
 class Person implements Cloneable {
   //Lower-level object
   private Car car;
-
   private String name;
+
   public Car getCar() {
     return car;
   }
@@ -20,6 +20,7 @@ class Person implements Cloneable {
     name = s;
     car = new Car(t);
   }
+
   public Object clone() {
     //shallow copy
     try {
@@ -29,6 +30,7 @@ class Person implements Cloneable {
     }
   }
 }
+
 class Car {
 
   private String name;
@@ -46,6 +48,7 @@ class Car {
 public class ShallowCopyTest {
 
   public static void main(String[] args) {
+    
     //Original Object
     Person p = new Person("Person-A","Civic");
     System.out.println("Original (orginal values): " +
