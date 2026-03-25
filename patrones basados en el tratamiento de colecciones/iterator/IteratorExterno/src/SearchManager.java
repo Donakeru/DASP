@@ -144,7 +144,15 @@ public class SearchManager extends JFrame {
 }
 
 class buttonHandler implements ActionListener {
+  
   SearchManager manager;
+
+  public buttonHandler() {
+  }
+
+  public buttonHandler(SearchManager inmanager) {
+    manager = inmanager;
+  }
 
   public void actionPerformed(ActionEvent e) {
 
@@ -167,13 +175,6 @@ class buttonHandler implements ActionListener {
       }
       manager.setSelectedCandidates(selectedCandidates);
     }
-  }
-
-  public buttonHandler() {
-  }
-
-  public buttonHandler(SearchManager inmanager) {
-    manager = inmanager;
   }
 
 }
