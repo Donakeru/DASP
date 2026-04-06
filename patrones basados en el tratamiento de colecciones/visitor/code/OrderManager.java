@@ -14,7 +14,7 @@ public class OrderManager extends JFrame {
   public static final String EXIT = "Exit";
   public static final String CA_ORDER = "California Order";
   public static final String NON_CA_ORDER = "Non-California Order";
-
+  public static final String COLOMBIAN_ORDER = "Colombian Order";
   public static final String OVERSEAS_ORDER = "Overseas Order";
 
   private JComboBox cmbOrderType;
@@ -36,6 +36,7 @@ public class OrderManager extends JFrame {
     cmbOrderType.addItem(OrderManager.CA_ORDER);
     cmbOrderType.addItem(OrderManager.NON_CA_ORDER);
     cmbOrderType.addItem(OrderManager.OVERSEAS_ORDER);
+    cmbOrderType.addItem(OrderManager.COLOMBIAN_ORDER);
 
     txtOrderAmount = new JTextField(10);
     txtAdditionalTax = new JTextField(10);
@@ -56,6 +57,7 @@ public class OrderManager extends JFrame {
     getTotalButton.setMnemonic(KeyEvent.VK_C);
     JButton exitButton = new JButton(OrderManager.EXIT);
     exitButton.setMnemonic(KeyEvent.VK_X);
+
     ButtonHandler objButtonHandler = new ButtonHandler(this);
 
     getTotalButton.addActionListener(objButtonHandler);
@@ -211,7 +213,15 @@ public class OrderManager extends JFrame {
 } // End of class OrderManager
 
 class ButtonHandler implements ActionListener {
+
   OrderManager objOrderManager;
+
+  public ButtonHandler() {
+  }
+
+  public ButtonHandler(OrderManager inObjOrderManager) {
+    objOrderManager = inObjOrderManager;
+  }
 
   public void actionPerformed(ActionEvent e) {
     String totalResult = null;
@@ -281,14 +291,10 @@ class ButtonHandler implements ActionListener {
         OrderManager.OVERSEAS_ORDER)) {
       return new OverseasOrder(orderAmount, SH);
     }
+    if (orderType.equalsIgnoreCase(OrderManager.COLOMBIAN_ORDER)) {
+      return new ColombianOrder(orderAmount, SH);
+    }
     return null;
-  }
-
-  public ButtonHandler() {
-  }
-
-  public ButtonHandler(OrderManager inObjOrderManager) {
-    objOrderManager = inObjOrderManager;
   }
 
 } // End of class ButtonHandler
