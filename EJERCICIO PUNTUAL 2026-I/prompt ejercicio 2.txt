@@ -1,0 +1,536 @@
+You are an AI assistant specialized in software design recovery. Your task is to analyze the provided source code and reconstruct design artifacts strictly based on the implementation.
+
+Your goal is to generate:
+
+A functional model (Use Case Diagram)
+A structural model (Class Diagram)
+A set of Sequence Diagrams (one per use case)
+
+Here is the source code to analyze:
+
+<java_code>
+    <project_structure>
+        AutoSearchUI.java
+        CARVehicleFactory.java
+        HATCHBACKVehicleFactory.java
+        Luxury.java
+        LuxuryCAR.java
+        LuxuryHATCHBACK.java
+        LuxurySUV.java
+        NonLuxury.java
+        NonLuxuryCAR.java
+        NonLuxuryHATCHBACK.java
+        NonLuxurySUV.java
+        SUVVehicleFactory.java
+        VehicleFactory.java
+    </project_structure>
+    <files>
+        <file path="AutoSearchUI.java">
+      <![CDATA[
+import java.io.*;
+import java.io.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import com.sun.java.swing.plaf.windows.*;
+
+public class AutoSearchUI extends JFrame {
+  public static final String newline = "\n";
+  public static final String SEARCH = "Search";
+  public static final String EXIT = "Exit";
+  public static final String LUXURY = "Luxury";
+  public static final String NON_LUXURY = "Non-Luxury";
+
+  private JComboBox cmbVehicleCategory, cmbVehicleType;
+
+  private JLabel lblVehicleCategory, lblVehicleType,
+      lblCarName, lblCarNameValue;
+
+  public AutoSearchUI() {
+    super("Abstract Factory - Example");
+
+    cmbVehicleCategory = new JComboBox();
+    cmbVehicleCategory.addItem(AutoSearchUI.LUXURY);
+    cmbVehicleCategory.addItem(AutoSearchUI.NON_LUXURY);
+
+    cmbVehicleType = new JComboBox();
+    cmbVehicleType.addItem(VehicleFactory.CAR);
+    cmbVehicleType.addItem(VehicleFactory.SUV);
+    cmbVehicleType.addItem(VehicleFactory.HATCHBACK);
+
+    lblVehicleCategory = new JLabel("Vehicle Category:");
+    lblVehicleType = new JLabel("VehicleType:");
+    lblCarName = new JLabel("Search Result:");
+    lblCarNameValue = new JLabel(" Please click on Search button");
+
+    // Create the open button
+    JButton openButton = new JButton(AutoSearchUI.SEARCH);
+    openButton.setMnemonic(KeyEvent.VK_S);
+    JButton exitButton = new JButton(AutoSearchUI.EXIT);
+    exitButton.setMnemonic(KeyEvent.VK_X);
+
+    ButtonHandler objButtonHandler = new ButtonHandler(this);
+
+    openButton.addActionListener(objButtonHandler);
+    exitButton.addActionListener(new ButtonHandler());
+
+    JPanel buttonPanel = new JPanel();
+
+    // ****************************************************
+    GridBagLayout gridbag = new GridBagLayout();
+    buttonPanel.setLayout(gridbag);
+    GridBagConstraints gbc = new GridBagConstraints();
+
+    buttonPanel.add(lblVehicleCategory);
+    buttonPanel.add(cmbVehicleCategory);
+    buttonPanel.add(lblVehicleType);
+    buttonPanel.add(cmbVehicleType);
+    buttonPanel.add(lblCarName);
+    buttonPanel.add(lblCarNameValue);
+
+    buttonPanel.add(openButton);
+    buttonPanel.add(exitButton);
+
+    gbc.insets.top = 5;
+    gbc.insets.bottom = 5;
+    gbc.insets.left = 5;
+    gbc.insets.right = 5;
+
+    gbc.anchor = GridBagConstraints.EAST;
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gridbag.setConstraints(lblVehicleCategory, gbc);
+    gbc.anchor = GridBagConstraints.WEST;
+
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    gridbag.setConstraints(cmbVehicleCategory, gbc);
+    gbc.anchor = GridBagConstraints.EAST;
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    gridbag.setConstraints(lblVehicleType, gbc);
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    gridbag.setConstraints(cmbVehicleType, gbc);
+    gbc.anchor = GridBagConstraints.EAST;
+    gbc.gridx = 0;
+    gbc.gridy = 2;
+    gridbag.setConstraints(lblCarName, gbc);
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.gridx = 1;
+    gbc.gridy = 2;
+    gridbag.setConstraints(lblCarNameValue, gbc);
+
+    gbc.insets.left = 2;
+    gbc.insets.right = 2;
+    gbc.insets.top = 40;
+    gbc.anchor = GridBagConstraints.EAST;
+
+    gbc.gridx = 0;
+    gbc.gridy = 5;
+    gridbag.setConstraints(openButton, gbc);
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.gridx = 1;
+    gbc.gridy = 5;
+    gridbag.setConstraints(exitButton, gbc);
+
+    // ****************************************************
+
+    // Add the buttons and the log to the frame
+    Container contentPane = getContentPane();
+
+    contentPane.add(buttonPanel, BorderLayout.CENTER);
+    try {
+      // UIManager.setLookAndFeel(new WindowsLookAndFeel());
+      SwingUtilities.updateComponentTreeUI(
+          AutoSearchUI.this);
+    } catch (Exception ex) {
+      System.out.println(ex);
+    }
+
+  }
+
+  public static void main(String[] args) {
+    JFrame frame = new AutoSearchUI();
+
+    frame.addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) {
+        System.exit(0);
+      }
+    });
+
+    // frame.pack();
+    frame.setSize(1050, 600);
+    frame.setVisible(true);
+  }
+
+  public String getSelectedCategory() {
+    return (String) cmbVehicleCategory.getSelectedItem();
+  }
+
+  public String getSelectedType() {
+    return (String) cmbVehicleType.getSelectedItem();
+  }
+
+  public void setResult(String searchResult) {
+    lblCarNameValue.setText(searchResult);
+  }
+} // End of class AutoSearchUI
+
+class ButtonHandler implements ActionListener {
+  AutoSearchUI objAutoSearchUI;
+
+  public ButtonHandler() {
+  }
+
+  public ButtonHandler(AutoSearchUI inObjAutoSearchUI) {
+    objAutoSearchUI = inObjAutoSearchUI;
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    
+    String searchResult = null;
+
+    if (e.getActionCommand().equals(AutoSearchUI.EXIT)) {
+      System.exit(1);
+    }
+    if (e.getActionCommand().equals(AutoSearchUI.SEARCH)) {
+      // get input values
+      String vhCategory = objAutoSearchUI.getSelectedCategory();
+      String vhType = objAutoSearchUI.getSelectedType();
+
+      // get one of Luxury or NonLuxury vehicle factories
+      VehicleFactory vf = VehicleFactory.getVehicleFactory(vhType);
+
+      if (vhCategory.equals(AutoSearchUI.LUXURY)) {
+        Luxury c = vf.getLuxury();
+        searchResult = "Name: " + c.getLuxuryName() + "  Features: " +
+            c.getLuxuryFeatures();
+      }
+      if (vhCategory.equals(AutoSearchUI.NON_LUXURY)) {
+        NonLuxury s = vf.getNonLuxury();
+        searchResult = "Name: " + s.getNLName() + "  Features: " +
+            s.getNLFeatures();
+      }
+      objAutoSearchUI.setResult(searchResult);
+    }
+
+  }
+
+} // End of class ButtonHandler
+      ]]>
+</file>
+
+        <file path="CARVehicleFactory.java">
+      <![CDATA[
+public class CARVehicleFactory extends VehicleFactory {
+
+  public LuxuryCAR getLuxury() {
+    return new LuxuryCAR("Luxury-Car");
+  }
+  public NonLuxuryCAR getNonLuxury() {
+    return new NonLuxuryCAR("NonLuxuryL-Car");
+  }
+} // End of class
+      ]]>
+</file>
+
+        <file path="HATCHBACKVehicleFactory.java">
+      <![CDATA[
+public class HATCHBACKVehicleFactory extends VehicleFactory {
+
+  public LuxuryHATCHBACK getLuxury() {
+    return new LuxuryHATCHBACK("Hatchback-Luxury");
+  }
+  public NonLuxuryHATCHBACK getNonLuxury() {
+    return new NonLuxuryHATCHBACK("Hatchback-NonLuxury");
+  }
+} // End of class
+      ]]>
+</file>
+
+        <file path="Luxury.java">
+      <![CDATA[
+public interface Luxury {
+  public String getLuxuryName();
+  public String getLuxuryFeatures();
+
+} // End of class
+      ]]>
+</file>
+
+        <file path="LuxuryCAR.java">
+      <![CDATA[
+public class LuxuryCAR implements Luxury {
+  private String name;
+  public LuxuryCAR(String cName) {
+    name = cName;
+  }
+  public String getLuxuryName() {
+    return name;
+  }
+  public String getLuxuryFeatures() {
+    return "Luxury Car Features ";
+  };
+
+} // End of class
+      ]]>
+</file>
+
+        <file path="LuxuryHATCHBACK.java">
+      <![CDATA[
+public class LuxuryHATCHBACK implements Luxury {
+  
+    private String name;
+  public LuxuryHATCHBACK(String cName) {
+    name = cName;
+  }
+  public String getLuxuryName() {
+    return name;
+  }
+  public String getLuxuryFeatures() {
+    return "Luxury HATCHBACK Features ";
+  };
+    
+}
+      ]]>
+</file>
+
+        <file path="LuxurySUV.java">
+      <![CDATA[
+public class LuxurySUV implements Luxury {
+  private String name;
+  public LuxurySUV(String sName) {
+    name = sName;
+  }
+  public String getLuxuryName() {
+    return name;
+  }
+  public String getLuxuryFeatures() {
+    return "Luxury SUV Features ";
+  };
+
+} // End of class
+      ]]>
+</file>
+
+        <file path="NonLuxury.java">
+      <![CDATA[
+public interface NonLuxury {
+  public String getNLName();
+  public String getNLFeatures();
+
+} // End of class
+      ]]>
+</file>
+
+        <file path="NonLuxuryCAR.java">
+      <![CDATA[
+public class NonLuxuryCAR implements NonLuxury {
+  private String name;
+  public NonLuxuryCAR(String sName) {
+    name = sName;
+  }
+  public String getNLName() {
+    return name;
+  }
+  public String getNLFeatures() {
+    return "Non-Luxury CAR Features ";
+  };
+
+} // End of class
+      ]]>
+</file>
+
+        <file path="NonLuxuryHATCHBACK.java">
+      <![CDATA[
+public class NonLuxuryHATCHBACK implements NonLuxury {
+    private String name;
+
+    public NonLuxuryHATCHBACK(String sName) {
+        name = sName;
+    }
+
+    public String getNLName() {
+        return name;
+    }
+
+    public String getNLFeatures() {
+        return "Non-Luxury HATCHBACK Features ";
+    };
+}
+      ]]>
+</file>
+
+        <file path="NonLuxurySUV.java">
+      <![CDATA[
+public class NonLuxurySUV implements NonLuxury {
+  private String name;
+  public NonLuxurySUV(String sName) {
+    name = sName;
+  }
+  public String getNLName() {
+    return name;
+  }
+  public String getNLFeatures() {
+    return "Non-Luxury SUV Features ";
+  };
+
+} // End of class
+      ]]>
+</file>
+
+        <file path="SUVVehicleFactory.java">
+      <![CDATA[
+public class SUVVehicleFactory extends VehicleFactory {
+
+  public LuxurySUV getLuxury() {
+    return new LuxurySUV("Luxury-SUV");
+  }
+  public NonLuxurySUV getNonLuxury() {
+    return new NonLuxurySUV("Non-Luxury-SUV");
+  }
+} // End of class
+      ]]>
+</file>
+
+        <file path="VehicleFactory.java">
+      <![CDATA[
+public abstract class VehicleFactory {
+  public static final String CAR = "Car";
+  public static final String SUV = "Suv";
+  public static final String HATCHBACK = "Hatchback";
+
+
+  public abstract Luxury getLuxury();
+  public abstract NonLuxury getNonLuxury();
+
+  public static VehicleFactory getVehicleFactory(String type) {
+    if (type.equals(VehicleFactory.CAR))
+      return new CARVehicleFactory();
+    if (type.equals(VehicleFactory.SUV))
+      return new SUVVehicleFactory();
+    if (type.equals(VehicleFactory.HATCHBACK)) {
+      return new HATCHBACKVehicleFactory();
+    }
+
+    return new CARVehicleFactory();
+  }
+
+} // End of class
+      ]]>
+</file>
+    </files>
+</java_code>
+
+Please follow these strict instructions:
+
+<instructions>
+
+1. Source of Truth:
+   - The source code is the ONLY valid source.
+   - Do NOT infer, assume, or invent functionality, actors, relationships, or behaviors.
+
+2. Functional Model (Use Case Diagram):
+   - Extract use cases ONLY from real execution points (e.g., main methods, UI events, action listeners) and engineering use cases (get instances, etc..).
+   - Actors must be strictly derived from observable interactions in the code.
+   - Do NOT invent actors or use cases.
+   - Output in PlantUML.
+
+3. Structural Model (Class Diagram):
+   - Extract all classes, interfaces, attributes, and methods exactly as defined in the code.
+
+   - Relationships MUST be identified and represented with HIGH PRECISION:
+
+     a. Inheritance / Implementation:
+        - Use ONLY when "extends" or "implements" is explicitly present.
+
+     b. Association:
+        - Only if a class holds a reference to another class (attribute, parameter, or persistent usage).
+        - MUST include direction if identifiable.
+
+     c. Dependency:
+        - When a class uses another class temporarily (e.g., local variable, method call, parameter usage).
+
+     d. Aggregation / Composition:
+        - Only if clearly deducible from code (e.g., strong ownership via attributes and lifecycle hints).
+        - If not स्पष्ट, DO NOT assume composition.
+
+   - Cardinality (MANDATORY):
+     - Infer multiplicity ONLY when it is explicitly or strongly implied:
+       - Collections (e.g., List, Array, JComboBox) → 0..*, 1..*
+       - Single object references → 1 or 0..1 depending on initialization
+     - If multiplicity is unclear → DO NOT invent, omit it instead.
+
+   - Navigability:
+     - Include arrows ONLY if direction is स्पष्ट from code usage.
+
+   - Do NOT add any relationship that is not directly supported by the code.
+
+   - Output in PlantUML.
+
+4. Sequence Diagrams:
+   - For EACH use case, generate EXACTLY ONE sequence diagram.
+
+   - STRICT TRACEABILITY:
+     - Every message MUST correspond to a real method call in the code.
+     - Every participant MUST map to an actual class/object.
+
+   - Flow:
+     - Reflect the real execution order as implemented in the code.
+     - Respect control structures (if, method calls, object creation).
+
+   - Object Creation:
+     - Include object instantiation ONLY if explicitly present (e.g., "new ClassName()").
+
+   - DO NOT:
+     - Invent methods
+     - Invent flows
+     - Simplify logic beyond what exists
+
+5. Traceability Requirement:
+   - Every element in EVERY diagram must be traceable to the code.
+   - If something cannot be traced → DO NOT include it.
+
+6. Naming:
+   - Use EXACT names from the code.
+   - No renaming, no abstraction.
+
+7. Output Format:
+   - ALL diagrams MUST be valid PlantUML.
+   - Keep diagrams separated and clearly labeled.
+
+</instructions>
+
+Provide your response in the following format:
+
+<response>
+
+<use_case_diagram>
+@startuml
+' PlantUML code here
+@enduml
+</use_case_diagram>
+
+<class_diagram>
+@startuml
+' Must include:
+' - Correct relationships
+' - Correct types (inheritance, association, dependency)
+' - Cardinalities ONLY when valid
+' - No invented links
+@enduml
+</class_diagram>
+
+<sequence_diagrams>
+
+<sequence_diagram name="UseCase_1_Name">
+@startuml
+' Strictly traceable interactions
+@enduml
+</sequence_diagram>
+
+</sequence_diagrams>
+
+</response>
