@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Client {
   public static void main(String[] args) {
+    
     //Create an appropriate implementer object
     MessageLogger loggerF = new FileLogger();
     MessageLogger loggerC = new ConsoleLogger();
@@ -13,4 +14,5 @@ public class Client {
     Message msgC = new TextMessage(loggerC);
     msgC.log("Testing text message");
   }
+  
 }
