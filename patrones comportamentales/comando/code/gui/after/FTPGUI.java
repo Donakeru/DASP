@@ -148,6 +148,7 @@ public class FTPGUI extends JFrame {
     }
 
   }
+  
   private void initialize() {
     // fill some test data here into the listbox.
     defLocalList.addElement("first.html");
@@ -195,23 +196,32 @@ public class FTPGUI extends JFrame {
   class UploadButton extends JButton 
 	implements CommandInterface {
 
+    public UploadButton(String name) {
+      super(name);
+    }
+
     public void processEvent() {
       int index = localList.getSelectedIndex();
       String selectedItem =
         localList.getSelectedValue().toString();
+
+        
       ((DefaultListModel) localList.getModel()).remove(
         index);
 
       ((DefaultListModel) remoteList.getModel()).addElement(
         selectedItem);
     }
-    public UploadButton(String name) {
-      super(name);
-    }
+    
   }
 
   class DownloadButton extends JButton 
 	implements CommandInterface {
+
+    public DownloadButton(String name) {
+      super(name);
+    }
+
     public void processEvent() {
       int index = remoteList.getSelectedIndex();
       String selectedItem =
@@ -221,9 +231,6 @@ public class FTPGUI extends JFrame {
 
       ((DefaultListModel) localList.getModel()).addElement(
         selectedItem);
-    }
-    public DownloadButton(String name) {
-      super(name);
     }
   }
 
@@ -253,6 +260,8 @@ public class FTPGUI extends JFrame {
     public void processEvent() {
       System.exit(1);
     }
+
+    
     public ExitButton(String name) {
       super(name);
     }
