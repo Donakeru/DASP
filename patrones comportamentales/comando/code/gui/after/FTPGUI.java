@@ -183,7 +183,7 @@ public class FTPGUI extends JFrame {
   class buttonHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
       CommandInterface CommandObj =
-        (CommandInterface) e.getSource();
+        (CommandInterface) e.getSource(); // Trae el objeto que generó el evento
       CommandObj.processEvent();
     }
   }
@@ -191,6 +191,7 @@ public class FTPGUI extends JFrame {
   interface CommandInterface {
     public void processEvent();
   }
+
   class UploadButton extends JButton 
 	implements CommandInterface {
 
@@ -208,6 +209,7 @@ public class FTPGUI extends JFrame {
       super(name);
     }
   }
+
   class DownloadButton extends JButton 
 	implements CommandInterface {
     public void processEvent() {
