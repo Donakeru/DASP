@@ -45,7 +45,7 @@ public class FTPGUI extends JFrame {
     JLabel lblLocalList = new JLabel("Local List:");
     JLabel lblRemoteList = new JLabel("Remote List:");
     JLabel lblSpacer = new JLabel("         ");
-
+      
     //Create buttons
     btnUpload = new UploadButton(FTPGUI.UPLOAD);
     btnUpload.setMnemonic(KeyEvent.VK_U);
