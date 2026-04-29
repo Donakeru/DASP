@@ -30,29 +30,26 @@ public class FTPGUI extends JFrame {
     pnlFTPUI = new JPanel();
 
     localList.setSelectionMode(
-      ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel.SINGLE_SELECTION);
     localList.setSelectedIndex(-1);
     JScrollPane spLocalList = new JScrollPane(localList);
 
     remoteList.setSelectionMode(
-      ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel.SINGLE_SELECTION);
     remoteList.setSelectedIndex(-1);
     JScrollPane spRemoteList = new JScrollPane(remoteList);
 
-    //Create Labels
+    // Create Labels
     JLabel lblLocalList = new JLabel("Local List:");
     JLabel lblRemoteList = new JLabel("Remote List:");
     JLabel lblSpacer = new JLabel("         ");
 
-    //Create buttons
-    UploadButton btnUpload =
-      new UploadButton(FTPGUI.UPLOAD, mdtr);
+    // Create buttons
+    UploadButton btnUpload = new UploadButton(FTPGUI.UPLOAD, mdtr);
     btnUpload.setMnemonic(KeyEvent.VK_U);
-    DownloadButton btnDownload =
-      new DownloadButton(FTPGUI.DOWNLOAD, mdtr);
+    DownloadButton btnDownload = new DownloadButton(FTPGUI.DOWNLOAD, mdtr);
     btnDownload.setMnemonic(KeyEvent.VK_N);
-    DeleteButton btnDelete =
-      new DeleteButton(FTPGUI.DELETE, mdtr);
+    DeleteButton btnDelete = new DeleteButton(FTPGUI.DELETE, mdtr);
     btnDelete.setMnemonic(KeyEvent.VK_D);
     JButton btnExit = new JButton(FTPGUI.EXIT);
     btnExit.setMnemonic(KeyEvent.VK_X);
@@ -64,6 +61,7 @@ public class FTPGUI extends JFrame {
     btnDownload.addActionListener(vf);
     btnDelete.addActionListener(vf);
     btnExit.addActionListener(vf);
+
     localList.addListSelectionListener(lh);
     remoteList.addListSelectionListener(lh);
 
@@ -95,11 +93,11 @@ public class FTPGUI extends JFrame {
     gbc2.gridy = 1;
     gridbag2.setConstraints(spRemoteList, gbc2);
 
-    //-----------------------------------
-    //For layout purposes, put the buttons in a separate panel
+    // -----------------------------------
+    // For layout purposes, put the buttons in a separate panel
     JPanel buttonPanel = new JPanel();
 
-    //----------------------------------------------
+    // ----------------------------------------------
     GridBagLayout gridbag = new GridBagLayout();
     buttonPanel.setLayout(gridbag);
     GridBagConstraints gbc = new GridBagConstraints();
@@ -137,8 +135,8 @@ public class FTPGUI extends JFrame {
     gbc.insets.right = 2;
     gbc.insets.top = 40;
 
-    //****************************************************
-    //Add the buttons and the log to the frame
+    // ****************************************************
+    // Add the buttons and the log to the frame
     Container contentPane = getContentPane();
     contentPane.add(lstPanel, BorderLayout.CENTER);
     contentPane.add(buttonPanel, BorderLayout.SOUTH);
@@ -149,13 +147,15 @@ public class FTPGUI extends JFrame {
 
     initialize();
     try {
-      UIManager.setLookAndFeel(new WindowsLookAndFeel());
+      UIManager.setLookAndFeel(
+          UIManager.getSystemLookAndFeelClassName());
       SwingUtilities.updateComponentTreeUI(FTPGUI.this);
     } catch (Exception ex) {
       System.out.println(ex);
     }
 
   }
+
   private void initialize() {
     // fill some test data here into the listbox.
     defLocalList.addElement("first.html");
@@ -177,20 +177,19 @@ public class FTPGUI extends JFrame {
 
     JFrame frame = new FTPGUI();
     frame.addWindowListener(new WindowAdapter() {
-          public void windowClosing(WindowEvent e) {
-            System.exit(0);
-          }
-        }
-                           );
+      public void windowClosing(WindowEvent e) {
+        System.exit(0);
+      }
+    });
 
-    //frame.pack();
+    // frame.pack();
     frame.setSize(450, 300);
     frame.setVisible(true);
   }
+
   class listHandler implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
-      CommandInterface CommandObj =
-        (CommandInterface) e.getSource();
+      CommandInterface CommandObj = (CommandInterface) e.getSource();
       CommandObj.processEvent();
     }
 
@@ -202,8 +201,7 @@ public class FTPGUI extends JFrame {
       if (e.getActionCommand().equals(FTPGUI.EXIT)) {
         System.exit(1);
       }
-      CommandInterface CommandObj =
-        (CommandInterface) e.getSource();
+      CommandInterface CommandObj = (CommandInterface) e.getSource();
       CommandObj.processEvent();
     }
 
@@ -211,29 +209,33 @@ public class FTPGUI extends JFrame {
     }
   }
 
-
-
   interface CommandInterface {
     public void processEvent();
   }
-  class UploadButton extends JButton 
-    implements CommandInterface {
+
+  class UploadButton extends JButton
+      implements CommandInterface {
     Mediator mdtr;
+
     public void processEvent() {
       mdtr.UploadItem();
     }
+
     public UploadButton(String name, Mediator inp_mdtr) {
       super(name);
       mdtr = inp_mdtr;
       mdtr.registerUploadButton(this);
     }
   }
-  class DownloadButton extends JButton 
-    implements CommandInterface {
+
+  class DownloadButton extends JButton
+      implements CommandInterface {
     Mediator mdtr;
+
     public void processEvent() {
       mdtr.DownloadItem();
     }
+
     public DownloadButton(String name, Mediator inp_mdtr) {
       super(name);
       mdtr = inp_mdtr;
@@ -241,12 +243,14 @@ public class FTPGUI extends JFrame {
     }
   }
 
-  class DeleteButton extends JButton 
-    implements CommandInterface {
+  class DeleteButton extends JButton
+      implements CommandInterface {
     Mediator mdtr;
+
     public void processEvent() {
       mdtr.DeleteItem();
     }
+
     public DeleteButton(String name, Mediator inp_mdtr) {
       super(name);
       mdtr = inp_mdtr;
@@ -254,27 +258,32 @@ public class FTPGUI extends JFrame {
     }
   }
 
-  class LocalList extends JList 
-    implements CommandInterface {
+  class LocalList extends JList
+      implements CommandInterface {
     Mediator mdtr;
+
     public void processEvent() {
       mdtr.LocalListSelect();
     }
+
     public LocalList(DefaultListModel defObj,
-                     Mediator inp_mdtr) {
+        Mediator inp_mdtr) {
       super(defObj);
       mdtr = inp_mdtr;
       mdtr.registerLocalList(this);
     }
   }
-  class RemoteList extends JList 
-    implements CommandInterface {
+
+  class RemoteList extends JList
+      implements CommandInterface {
     Mediator mdtr;
+
     public void processEvent() {
       mdtr.RemoteListSelect();
     }
+
     public RemoteList(DefaultListModel defObj,
-                      Mediator inp_mdtr) {
+        Mediator inp_mdtr) {
       super(defObj);
       mdtr = inp_mdtr;
       mdtr.registerRemoteList(this);
@@ -291,16 +300,20 @@ public class FTPGUI extends JFrame {
     public void registerUploadButton(UploadButton inp_ib) {
       btnUpload = inp_ib;
     }
+
     public void registerDownloadButton(
-      DownloadButton inp_dnb) {
+        DownloadButton inp_dnb) {
       btnDownload = inp_dnb;
     }
+
     public void registerDeleteButton(DeleteButton inp_db) {
       btnDelete = inp_db;
     }
+
     public void registerLocalList(LocalList inp_arl) {
       localList = inp_arl;
     }
+
     public void registerRemoteList(RemoteList inp_drl) {
       remoteList = inp_drl;
     }
@@ -308,43 +321,43 @@ public class FTPGUI extends JFrame {
     public void UploadItem() {
 
       int index = localList.getSelectedIndex();
-      String selectedItem =
-        localList.getSelectedValue().toString();
+      String selectedItem = localList.getSelectedValue().toString();
       ((DefaultListModel) localList.getModel()).remove(
-        index);
+          index);
 
       ((DefaultListModel) remoteList.getModel()).addElement(
-        selectedItem);
+          selectedItem);
 
       btnUpload.setEnabled(false);
       btnDelete.setEnabled(false);
       btnDownload.setEnabled(false);
     }
+
     public void DownloadItem() {
       int index = remoteList.getSelectedIndex();
-      String selectedItem =
-        remoteList.getSelectedValue().toString();
+      String selectedItem = remoteList.getSelectedValue().toString();
       ((DefaultListModel) remoteList.getModel()).remove(
-        index);
+          index);
 
       ((DefaultListModel) localList.getModel()).addElement(
-        selectedItem);
+          selectedItem);
 
       btnUpload.setEnabled(false);
       btnDelete.setEnabled(false);
       btnDownload.setEnabled(false);
     }
+
     public void DeleteItem() {
       int index = localList.getSelectedIndex();
       if (index >= 0) {
         ((DefaultListModel) localList.getModel()).remove(
-          index);
+            index);
       }
 
       index = remoteList.getSelectedIndex();
       if (index >= 0) {
         ((DefaultListModel) remoteList.getModel()).remove(
-          index);
+            index);
       }
       btnUpload.setEnabled(false);
       btnDelete.setEnabled(false);
@@ -358,6 +371,7 @@ public class FTPGUI extends JFrame {
       btnDelete.setEnabled(true);
       btnDownload.setEnabled(false);
     }
+
     public void RemoteListSelect() {
       localList.setSelectedIndex(-1);
       btnUpload.setEnabled(false);
@@ -367,4 +381,3 @@ public class FTPGUI extends JFrame {
   }
 
 }// end of class
-
