@@ -433,9 +433,9 @@ Please follow these strict instructions:
    - Do NOT infer, assume, or invent functionality, actors, relationships, or behaviors.
 
 2. Functional Model (Use Case Diagram):
-   - Extract use cases ONLY from real execution points (e.g., main methods, UI events, action listeners) and engineering use cases (get instances, etc..).
+   - Extract use cases ONLY from real execution points
    - Actors must be strictly derived from observable interactions in the code.
-   - Do NOT invent actors or use cases.
+   - Do NOT invent actors or unnecesary use cases.
    - Output in PlantUML.
 
 3. Structural Model (Class Diagram):
@@ -463,9 +463,6 @@ Please follow these strict instructions:
        - Single object references → 1 or 0..1 depending on initialization
      - If multiplicity is unclear → DO NOT invent, omit it instead.
 
-   - Navigability:
-     - Include arrows ONLY if direction is स्पष्ट from code usage.
-
    - Do NOT add any relationship that is not directly supported by the code.
 
    - Output in PlantUML.
@@ -488,10 +485,6 @@ Please follow these strict instructions:
      - Invent methods
      - Invent flows
      - Simplify logic beyond what exists
-
-5. Traceability Requirement:
-   - Every element in EVERY diagram must be traceable to the code.
-   - If something cannot be traced → DO NOT include it.
 
 6. Naming:
    - Use EXACT names from the code.
