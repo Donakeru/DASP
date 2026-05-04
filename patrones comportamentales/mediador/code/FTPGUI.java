@@ -185,7 +185,7 @@ public class FTPGUI extends JFrame {
     // frame.pack();
     frame.setSize(450, 300);
     frame.setVisible(true);
-  }
+  } 
 
   class listHandler implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
