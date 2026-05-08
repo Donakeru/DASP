@@ -65,6 +65,7 @@ public class YTDChart extends JFrame implements Observer {
       int h = 20;
 
       int[] totals = getYTDTotals(department);
+
       //current month
       Calendar cal = Calendar.getInstance();
       cal.setTime(new Date());
@@ -111,6 +112,7 @@ public class YTDChart extends JFrame implements Observer {
     }
     return totals;
   }
+
   private int getMonthlyTotal(int month, String department) {
     FileUtil futil = new FileUtil();
     Vector allRows = futil.fileToVector("Transactions.dat");

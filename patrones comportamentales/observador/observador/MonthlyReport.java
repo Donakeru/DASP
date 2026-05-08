@@ -38,8 +38,7 @@ public class MonthlyReport extends JFrame implements Observer {
     contentPane.add(buttonPanel, BorderLayout.CENTER);
     try {
       UIManager.setLookAndFeel(
-        UIManager.getSystemLookAndFeelClassName()
-      );
+          UIManager.getSystemLookAndFeelClassName());
       SwingUtilities.updateComponentTreeUI(
           MonthlyReport.this);
     } catch (Exception ex) {
@@ -83,7 +82,7 @@ public class MonthlyReport extends JFrame implements Observer {
     String searchStr = department + "," + month + ",";
     int j = 1;
     for (int i = 0; i < allRows.size(); i++) {
-      String str = (String) allRows.elementAt(i)  ;
+      String str = (String) allRows.elementAt(i);
       if (str.indexOf(searchStr) > -1) {
 
         StringTokenizer st = new StringTokenizer(str, ",");
