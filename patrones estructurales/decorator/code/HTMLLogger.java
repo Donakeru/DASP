@@ -25,7 +25,7 @@ public class HTMLLogger extends LoggerDecorator {
      	Make it into an HTML document.
      */
     DataLine = "<HTML><BODY>" + "<b>" + DataLine + 
-	  "</b>" + "</BODY></HTML>";
+	    "</b>" + "</BODY></HTML>";
 
 
     return DataLine;

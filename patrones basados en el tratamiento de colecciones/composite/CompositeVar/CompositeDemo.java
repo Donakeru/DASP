@@ -18,13 +18,16 @@ public class CompositeDemo {
     try {
       mainFolder.addComponent(subFolder1);
       mainFolder.addComponent(subFolder2);
+      folder1File1.addComponent(folder2File2);
       subFolder1.addComponent(folder1File1);
       subFolder1.addComponent(folder1File2);
       subFolder2.addComponent(folder2File1);
       subFolder2.addComponent(folder2File2);
     } catch (CompositeException ex) {
-      //
+      System.out.println(ex.getMessage());
     }
+
+    
 
     
 
